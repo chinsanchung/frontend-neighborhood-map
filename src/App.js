@@ -1,63 +1,52 @@
 import React, { Component } from 'react';
-import './App.css';
 import { render } from 'react-dom';
+import Map from './Map'
+import InfoWindow from './InfoWindow'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.onScriptLoad = this.onScriptLoad.bind(this)
+
+  createInfoWindow(e, map) {
+    const infoWindow = new window.google.maps.InfoWindow({
+        content: '<div id="infoWindow" />',
+        position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+    })
+    infoWindow.addListener('domready', e => {
+      render(<InfoWindow />, document.getElementById('infoWindow'))
+    })
+    infoWindow.open(map)
   }
 
-  onScriptLoad() {
-    const map = new window.google.maps.Map(
-      document.getElementById(this.props.id),
-      this.props.options);
-    this.props.onMapLoad(map)
-  }
-
-  componentDidMount() {
-    if (!window.google) {
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = `https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBQzDYeihQyVFS3NhEU0pruH4DiKrKjrC0&v=3&callback=initMap`;
-      var x = document.getElementsByTagName('script')[0];
-      x.parentNode.insertBefore(s, x);
-      // Below is important.
-      //We cannot access google.maps until it's finished loading
-      s.addEventListener('load', e => {
-        this.onScriptLoad()
-      })
-    } else {
-      this.onScriptLoad()
-    }
-  }
-
-  initMap = () => {
-    const map = new window.google.maps.Map(
-      document.querySelector('googleMap'),
-      {
-        zoom: 17,
-        center: { lat: 37.511260, lng: 127.056780 }
-      }
-    );
-    const marker = new window.google.maps.Marker({
-      position: {lat: 37.5123397, lng: 127.0585714},
-      map: map
-    });
-  };
   render() {
+    const style= {
+      bottom: '0px',
+      height: '100%',
+      left: '30%',
+      position: 'absolute',
+      right: '0px'
+    }
+    const locations = [
+      {title: 'Starfield Coex', location: {lat: 37.5123397, lng: 127.0585714}},
+      {title: 'Le Saigong', location: {lat: 37.5113763, lng: 127.0574133}},
+      {title: 'Villa guerrero', location: {lat: 37.5113607, lng: 127.0544996}},
+      {title: 'Megabox Coex Theater', location: {lat: 37.5124447, lng: 127.0582433}},
+      {title: 'Lunaasia', location: {lat: 37.5098951, lng: 127.0543984}}
+    ]
     return (
       <Map
-        id="googleMap"
+        id="myMap"
         options={{
-          zoom: 17,
-          center: { lat: 37.511260, lng: 127.056780 }
+          center: { lat: 41.0082, lng: 28.9784 },
+          zoom: 8
         }}
-        onMapLoad = {(map) => {
+        onMapLoad={map => {
           const marker = new window.google.maps.Marker({
-            position: {lat: 37.5123397, lng: 127.0585714},
-            map: map
+            position: { lat: 41.0082, lng: 28.9784 },
+            map: map,
+            title: 'Hello Istanbul!'
           });
+          marker.addListener('click', e => {
+            this.createInfoWindow(e, map)
+          })
         }}
       />
     );
