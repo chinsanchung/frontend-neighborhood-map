@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Map from './Map'
-
+import InfoWindow from './InfoWindow'
 
 class App extends Component {
   state = {
@@ -19,6 +19,8 @@ class App extends Component {
     ]
   }
 
+  let infoWindow = new window.google.maps.InfoWindow();
+
   makeMarker = (map, markers) => {
     for (let i = 0; i < markers.length; i++) {
       let position = markers[i].location;
@@ -29,17 +31,19 @@ class App extends Component {
         title: title,
         id: i
       });
-      marker.addListener('click', e => {
-        this.createInfoWindow(e, map)
+      marker.addListener('click', () => {
+        this.createInfoWindow(this, infoWindow)
       })
     }
   };
 
   createInfoWindow(e, map) {
     const infoWindow = new window.google.maps.InfoWindow({
-      content: '<div id="infoWindow"><p>111</p></div>',
-      position: { lat: e.latLng.lat(), lng: e.latLng.lng() },
-
+        content: '<div id="infoWindow" />',
+        position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+    })
+    infoWindow.addListener('domready', e => {
+      render(<InfoWindow />, document.getElementById('infoWindow'))
     })
     infoWindow.open(map)
   }
