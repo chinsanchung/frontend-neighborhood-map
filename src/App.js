@@ -37,15 +37,15 @@ class App extends Component {
     }
   };
 
-  createInfoWindow(e, map) {
-    const infoWindow = new window.google.maps.InfoWindow({
-        content: '<div id="infoWindow" />',
-        position: { lat: e.latLng.lat(), lng: e.latLng.lng() }
-    })
-    infoWindow.addListener('domready', e => {
-      render(<InfoWindow />, document.getElementById('infoWindow'))
-    })
-    infoWindow.open(map)
+  createInfoWindow(marker, infowindow) {
+    if(infowindow.marker != marker) {
+      //infowindow.setContent('');
+      infowindow.marker = marker;
+      infowindow.addListener('closeclick', () => {
+        infowindow.marker = null;
+      });
+      
+    }
   }
 
   render() {
