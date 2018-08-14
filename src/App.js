@@ -15,8 +15,10 @@ let locations = [
   {title: 'Everett Crowley Park', id: '4bbbe9dfe436ef3b410c5664', location: {lat: 49.21342955433354, lng: -123.02829934550388}},
   {title: 'Central Park', id: '4b68638df964a5207e752be3', location: {lat: 49.22757541544695, lng: -123.01769256591797}}
 ];
+
 let map;
-let markers = [];
+let markers;
+let markerImage;
 //variables for infowindow
 let largeInfowindow;
 let api;
@@ -38,6 +40,7 @@ class App extends Component {
 
     //Make marker with locations array
     largeInfowindow = new window.google.maps.InfoWindow();
+    markers = [];
     for (let i = 0; i < locations.length; i++) {
       let position = locations[i].location;
       let title = locations[i].title;
@@ -48,10 +51,24 @@ class App extends Component {
         id: locations[i].id
       });
       markers.push(marker);
+      //onclick event to open infowindow
       marker.addListener('click', () => {
         this.createInfoWindow(marker, largeInfowindow)
       }, {passive: true});
     }
+  }
+
+  //Change marker's CSS
+  changeMarker(color) {
+    markerImage = new window.google.maps.MarkerImage(
+      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ color +
+      '|40|_|%E2%80%A2',
+      new window.google.maps.Size(10, 10),
+      new window.google.maps.Point(0, 0),
+      new window.google.maps.Point(10, 10),
+      new window.google.maps.Size(25,25)
+    );
+    return markerImage;
   }
 
   // let client_id = EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4;
@@ -62,21 +79,30 @@ class App extends Component {
     fetch(api, {
       method: 'GET'
     }).then(res => {
-      console.log(res);
-      let data = res.json().then(data => {
-        console.log(data)
-        address = data.response.venue.location.address;
-        canonicalUrl = data.response.venue.canonicalUrl;
-      })
+      if(res.status === 200) {
+        console.log(res);
+        let data = res.json().then(data => {
+          console.log(data);
+          address = data.response.venue.location.address;
+          canonicalUrl = data.response.venue.canonicalUrl;
+        })
+      }
+    }).catch(error => {
+      console.log('Error occurred : ' + error);
     })
   }
 
   //Create InfoWindow about marker
   createInfoWindow(marker, infowindow) {
     if(infowindow.marker !== marker) {
-      this.getDetails(marker);
+      infowindow.setContent('');
       infowindow.marker = marker;
 
+      infowindow.addListener('closeclick', () => {
+        infowindow.marker = null;
+      });
+      //this.getDetails(marker);
+/*    infowindow 의 foursquare api
       infowindow.setContent(
         `<div>
           <h5>${marker.title}</h5>
@@ -84,11 +110,9 @@ class App extends Component {
           <a href="${canonicalUrl}">Details about ${marker.title}</a>
         </div>`
       );
+*/
+      infowindow.setContent(`<div>${marker.title}</div>`);
       infowindow.open(map, marker);
-
-      infowindow.addListener('closeclick', () => {
-        infowindow.marker = null;
-      });
     }
   }
 
@@ -111,18 +135,21 @@ class App extends Component {
     }
   }
 
-  //sideBar section
-
 
   render() {
     return (
       <div className="App">
         <div className="sideBar">
           <h2 className="title">Parks in Vancouver</h2>
-          <form id="searchForm">
-            <input type="text" id="searchText" placeholder="test"/>
-            <input type="button" id="submit" value="Zoom"/>
-          </form>
+          <ul className="FilterUl">
+          {locations.map((location, i) => (
+            <li key={i} className="filterLi" onClick={() => {
+              alert(location.title);
+            }}>
+              {location.title}
+            </li>
+          ))}
+          </ul>
         </div>
         <div className="myMap" />
       </div>
