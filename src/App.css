@@ -1,0 +1,44 @@
+h3 {
+  width: 30%;
+}
+
+.myMap {
+  bottom: 0px;
+  height: 100%;
+  left: 30%;
+  display: block;
+  position: absolute;
+  right: 0px
+}
+
+.sideBar {
+  position: relative;
+  transform: translate3d(-30em, 0, 0);
+  transition: transform 0.2s;
+}
+.filterUl {
+  list-style: none;
+}
+/* show sideBar list */
+.show {
+  position: absolute;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.2s;
+}
+.title {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+@media screen and (max-width: 650px) {
+  .myMap {
+    left: 5%
+  }
+  . {
+    -webkit-transform: translate3d(-12em, 0, 0);
+    -webkit-transition: transform 0.2s;
+    transform: translate3d(-30em, 0, 0);
+    transition: transform 0.2s;
+  }
+}
