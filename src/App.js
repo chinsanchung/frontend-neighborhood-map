@@ -13,20 +13,23 @@ let locations = [
   {title: 'Vanier Park', id: '4aad7ad6f964a520836020e3', location: {lat: 49.27581284594059, lng: -123.14214706420898}},
   {title: 'Harbour Green Park', id: '4c474fc476d72d7fa3c03c4d', location: {lat: 49.290062155858095, lng: -123.12171936035156}},
   {title: 'Everett Crowley Park', id: '4bbbe9dfe436ef3b410c5664', location: {lat: 49.21342955433354, lng: -123.02829934550388}},
-  {title: 'Central Park', id: '4b68638df964a5207e752be3', location: {lat: 49.22757541544695, lng: -123.01769256591797}}
+  {title: 'Central Park', id: '4b68638df964a5207e752be3', location: {lat: 49.22757541544695, lng: -123.01769256591797}},
+  {title: 'John Hendry Park', id:'51772465e4b00a8e579d66e5', location: {lat: 	49.256151959732335, lng: -123.06313290541483}}
 ];
 
 let map;
-let markers;
-let markerImage;
+let addMarker;
 //variables for infowindow
 let largeInfowindow;
 let api;
 let address;
 let canonicalUrl;
+let sideName;
 
 class App extends Component {
-
+  state = {
+    markers: []
+  }
   initMap() {
     let styles = [
 
@@ -40,7 +43,6 @@ class App extends Component {
 
     //Make marker with locations array
     largeInfowindow = new window.google.maps.InfoWindow();
-    markers = [];
     for (let i = 0; i < locations.length; i++) {
       let position = locations[i].location;
       let title = locations[i].title;
@@ -48,27 +50,27 @@ class App extends Component {
         map: map,
         position: position,
         title: title,
+        animation: window.google.maps.Animation.DROP,
         id: locations[i].id
       });
-      markers.push(marker);
+      //helped from https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array/37435577
+      this.setState({ markers: [...this.state.markers, marker] });
       //onclick event to open infowindow
       marker.addListener('click', () => {
-        this.createInfoWindow(marker, largeInfowindow)
+        this.createInfoWindow(marker, largeInfowindow);
+        marker.setAnimation(null);
       }, {passive: true});
     }
+    console.log(this.state.markers);
   }
 
-  //Change marker's CSS
-  changeMarker(color) {
-    markerImage = new window.google.maps.MarkerImage(
-      'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ color +
-      '|40|_|%E2%80%A2',
-      new window.google.maps.Size(10, 10),
-      new window.google.maps.Point(0, 0),
-      new window.google.maps.Point(10, 10),
-      new window.google.maps.Size(25,25)
-    );
-    return markerImage;
+  //Change marker's CSS..how to connect sideBar's item with marker
+  markerAnimation(marker) {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    }
   }
 
   // let client_id = EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4;
@@ -116,6 +118,12 @@ class App extends Component {
     }
   }
 
+  //sideBar change
+  //sideName = document.querySelector('.show');
+  changeSide() {
+    document.querySelector('.sideBar').classList.toggle('show');
+  }
+
 
 
   componentDidMount() {
@@ -139,16 +147,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <p onClick={this.changeSide}>TEST</p>
         <div className="sideBar">
           <h2 className="title">Parks in Vancouver</h2>
-          <ul className="FilterUl">
-          {locations.map((location, i) => (
-            <li key={i} className="filterLi" onClick={() => {
-              alert(location.title);
-            }}>
-              {location.title}
-            </li>
-          ))}
+          <ul className="filterUl">
+            {this.state.markers.map((marker, i) => (
+              <li key={i} className="filterLi" value={marker} onClick={() => this.markerAnimation(marker)}>
+                {marker.title}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="myMap" />
