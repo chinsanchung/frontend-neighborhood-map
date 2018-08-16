@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './App.css'
 
+
 let locations = [
   {title: 'Queen Elizabeth Park', id: '4bdf6cddffdec9287a09eca1', location: {lat: 49.24156455524772, lng: -123.11335520540814}},
   {title: 'Dude Chilling Park', id: '50f1dd8ee4b0ee8fd93bbfff', location:  {lat: 49.26372990146711, lng: -123.09679627418517}},
@@ -122,9 +123,8 @@ class App extends Component {
   //sideName = document.querySelector('.show');
   changeSide() {
     document.querySelector('.sideBar').classList.toggle('show');
+    document.querySelector('.sideButton').classList.toggle('hide');
   }
-
-
 
   componentDidMount() {
     if (!window.google) {
@@ -147,9 +147,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p onClick={this.changeSide}>TEST</p>
+        <p className="sideButton" onClick={this.changeSide}>TEST</p>
         <div className="sideBar">
           <h2 className="title">Parks in Vancouver</h2>
+          <span onClick={this.changeSide} className="closeButton">&#8678;</span>
           <ul className="filterUl">
             {this.state.markers.map((marker, i) => (
               <li key={i} className="filterLi" value={marker} onClick={() => this.markerAnimation(marker)}>
