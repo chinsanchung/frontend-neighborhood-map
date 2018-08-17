@@ -29,7 +29,8 @@ let sideName;
 
 class App extends Component {
   state = {
-    markers: []
+    markers: [],
+    foursquaredata: []
   }
   initMap() {
     let styles = [
@@ -76,25 +77,37 @@ class App extends Component {
 
   // let client_id = EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4;
   // let client_secret = 3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP;
-
+/*
   getDetails(marker) {
     api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
       if(res.status === 200) {
-        console.log(res);
         let data = res.json().then(data => {
-          console.log(data);
           address = data.response.venue.location.address;
           canonicalUrl = data.response.venue.canonicalUrl;
         })
+        console.log('fetch successed : ' + address + canonicalUrl);
       }
     }).catch(error => {
       console.log('Error occurred : ' + error);
     })
   }
-
+*/
+  getDetails(marker) {
+    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
+    fetch(api, {
+      method: 'GET'
+    }).then(res => {
+      return res.json();
+    }).then(data => {
+      this.setState({ foursquaredata: data })
+    }).catch(ev => {
+      console.log("Error occurred: ", ev);
+    })
+  }
+  
   //Create InfoWindow about marker
   createInfoWindow(marker, infowindow) {
     if(infowindow.marker !== marker) {
@@ -104,8 +117,7 @@ class App extends Component {
       infowindow.addListener('closeclick', () => {
         infowindow.marker = null;
       });
-      //this.getDetails(marker);
-/*    infowindow 의 foursquare api
+      this.getDetails(marker);
       infowindow.setContent(
         `<div>
           <h5>${marker.title}</h5>
@@ -113,9 +125,9 @@ class App extends Component {
           <a href="${canonicalUrl}">Details about ${marker.title}</a>
         </div>`
       );
-*/
-      infowindow.setContent(`<div>${marker.title}</div>`);
-      infowindow.open(map, marker);
+
+      // infowindow.setContent(`<div>${marker.title}</div>`);
+      // infowindow.open(map, marker);
     }
   }
 
