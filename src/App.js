@@ -23,7 +23,9 @@ let addMarker;
 //variables for infowindow
 let largeInfowindow;
 let api;
+let data;
 let address;
+let infoContents;
 let canonicalUrl;
 let sideName;
 
@@ -77,24 +79,24 @@ class App extends Component {
 
   // let client_id = EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4;
   // let client_secret = 3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP;
-/*
+
   getDetails(marker) {
     api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
       if(res.status === 200) {
-        let data = res.json().then(data => {
+        data = res.json().then(data => {
           address = data.response.venue.location.address;
           canonicalUrl = data.response.venue.canonicalUrl;
+          console.log('fetch successed: address= ' + address + ' url=' + canonicalUrl);
         })
-        console.log('fetch successed : ' + address + canonicalUrl);
       }
     }).catch(error => {
       console.log('Error occurred : ' + error);
     })
   }
-*/
+/*
   getDetails(marker) {
     api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
     fetch(api, {
@@ -107,7 +109,7 @@ class App extends Component {
       console.log("Error occurred: ", ev);
     })
   }
-  
+*/
   //Create InfoWindow about marker
   createInfoWindow(marker, infowindow) {
     if(infowindow.marker !== marker) {
@@ -117,18 +119,21 @@ class App extends Component {
       infowindow.addListener('closeclick', () => {
         infowindow.marker = null;
       });
-      this.getDetails(marker);
-      infowindow.setContent(
-        `<div>
-          <h5>${marker.title}</h5>
-          <h6>Address: ${address}</h6>
-          <a href="${canonicalUrl}">Details about ${marker.title}</a>
-        </div>`
-      );
-
       // infowindow.setContent(`<div>${marker.title}</div>`);
       // infowindow.open(map, marker);
     }
+    return new Promise((resolve, reject) => {
+      data.onload = () => resolve(() => {
+        infowindow.setContent(
+          `<div>
+          <h5>${marker.title}</h5>
+          <h6>Address: ${address}</h6>
+          <a href="${canonicalUrl}">Details about ${marker.title}</a>
+          </div>`
+        )
+      });
+      data.onerror = () => reject(console.log('error'))
+    })
   }
 
   //sideBar change
