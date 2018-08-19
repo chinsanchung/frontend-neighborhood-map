@@ -20,10 +20,26 @@ body {
 }
 .sideButton {
   display: none;
+  margin-top: 12px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.line {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+
+  background: white;
+  border-radius: 3px;
+
+  z-index: 1;
 }
 .closeButton {
   display: none;
   font-size: 5vw;
+  cursor: pointer;
 }
 .filterUl {
   list-style: none;
@@ -32,12 +48,18 @@ body {
 }
 .filterLi {
   margin-bottom: 40px;
+  cursor: pointer;
 }
 /* show sideBar list */
 
 .title {
   font-size: 3vw;
   padding-left: 5px;
+}
+/* infowindow CSS */
+.photoId {
+  width: 100px;
+  height: auto;
 }
 /* Minumum size 650px */
 @media screen and (max-width: 650px) {
