@@ -24,15 +24,14 @@ let addMarker;
 let largeInfowindow;
 let api;
 let data;
-let address;
-let infoContents;
+let name;
+let formattedAddress;
 let canonicalUrl;
-let sideName;
+//let photoId;
 
 class App extends Component {
   state = {
-    markers: [],
-    foursquaredata: []
+    markers: []
   }
   initMap() {
     let styles = [
@@ -80,64 +79,44 @@ class App extends Component {
   // let client_id = EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4;
   // let client_secret = 3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP;
 
-  getDetails(marker) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
-    fetch(api, {
-      method: 'GET'
-    }).then(res => {
-      if(res.status === 200) {
-        data = res.json().then(data => {
-          address = data.response.venue.location.address;
-          canonicalUrl = data.response.venue.canonicalUrl;
-          console.log('fetch successed: address= ' + address + ' url=' + canonicalUrl);
-        })
-      }
-    }).catch(error => {
-      console.log('Error occurred : ' + error);
-    })
-  }
-/*
-  getDetails(marker) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
-    fetch(api, {
-      method: 'GET'
-    }).then(res => {
-      return res.json();
-    }).then(data => {
-      this.setState({ foursquaredata: data })
-    }).catch(ev => {
-      console.log("Error occurred: ", ev);
-    })
-  }
-*/
   //Create InfoWindow about marker
   createInfoWindow(marker, infowindow) {
     if(infowindow.marker !== marker) {
-      infowindow.setContent('');
+      //infowindow.setContent('');
       infowindow.marker = marker;
 
       infowindow.addListener('closeclick', () => {
         infowindow.marker = null;
       });
-      // infowindow.setContent(`<div>${marker.title}</div>`);
-      // infowindow.open(map, marker);
+      api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
+      fetch(api, {
+        method: 'GET'
+      }).then(res => {
+        if(res.status === 200) {
+          data = res.json().then(data => {
+            name = data.response.venue.name;
+            formattedAddress = data.response.venue.location.formattedAddress;
+            canonicalUrl = data.response.venue.canonicalUrl;
+            //photoId = data.response.venue.photoId;
+            console.log('fetch successed: address= ' + formattedAddress + ' url=' + canonicalUrl);
+            //infowindow
+            //<img src="${photoId}" className="infoPhoto" alt="Picture that shows ${name}">
+            infowindow.setContent(`<div>
+              <h3>${name}</h3>
+              <h4>Address : ${formattedAddress}</h4>
+              <a href="${canonicalUrl}" target="_blank">Visit Foursquare page</a>
+              </div>`)
+            infowindow.open(map, marker);
+          })
+        }
+      }).catch(error => {
+        console.log('Error occurred : ' + error);
+      })
     }
-    return new Promise((resolve, reject) => {
-      data.onload = () => resolve(() => {
-        infowindow.setContent(
-          `<div>
-          <h5>${marker.title}</h5>
-          <h6>Address: ${address}</h6>
-          <a href="${canonicalUrl}">Details about ${marker.title}</a>
-          </div>`
-        )
-      });
-      data.onerror = () => reject(console.log('error'))
-    })
   }
 
   //sideBar change
-  //sideName = document.querySelector('.show');
+
   changeSide() {
     document.querySelector('.sideBar').classList.toggle('show');
     document.querySelector('.sideButton').classList.toggle('hide');
