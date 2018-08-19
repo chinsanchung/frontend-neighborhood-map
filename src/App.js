@@ -60,7 +60,7 @@ class App extends Component {
       this.setState({ markers: [...this.state.markers, marker] });
       //onclick event to open infowindow
       marker.addListener('click', () => {
-        this.createInfoWindow(marker, largeInfowindow);
+        this.getDetails(marker, largeInfowindow);
         marker.setAnimation(null);
       }, {passive: true});
     }
@@ -88,33 +88,34 @@ class App extends Component {
       infowindow.addListener('closeclick', () => {
         infowindow.marker = null;
       });
-      api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
-      fetch(api, {
-        method: 'GET'
-      }).then(res => {
-        if(res.status === 200) {
-          data = res.json().then(data => {
-            name = data.response.venue.name;
-            formattedAddress = data.response.venue.location.formattedAddress;
-            canonicalUrl = data.response.venue.canonicalUrl;
-            //photoId = data.response.venue.photoId;
-            console.log('fetch successed: address= ' + formattedAddress + ' url=' + canonicalUrl);
-            //infowindow
-            //<img src="${photoId}" className="infoPhoto" alt="Picture that shows ${name}">
-            infowindow.setContent(`<div>
-              <h3>${name}</h3>
-              <h4>Address : ${formattedAddress}</h4>
-              <a href="${canonicalUrl}" target="_blank">Visit Foursquare page</a>
-              </div>`)
-            infowindow.open(map, marker);
-          })
-        }
-      }).catch(error => {
-        console.log('Error occurred : ' + error);
-      })
+      infowindow.setContent(`<div>
+        <h3>${name}</h3>
+        <h4>Address : ${formattedAddress}</h4>
+        <a href="${canonicalUrl}" target="_blank">Visit Foursquare page</a>
+        </div>`)
+      infowindow.open(map, marker);
     }
   }
-
+  //Get data of Foursquare and store them in variables
+getDetails(marker, infowindow) {
+  api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
+  fetch(api, {
+    method: 'GET'
+  }).then(res => {
+    if(res.status === 200) {
+      data = res.json().then(data => {
+        name = data.response.venue.name;
+        formattedAddress = data.response.venue.location.formattedAddress;
+        canonicalUrl = data.response.venue.canonicalUrl;
+        console.log('fetch successed: address= ' + formattedAddress + ' url=' + canonicalUrl);
+        //run createInfoWindow function
+        this.createInfoWindow(marker, infowindow);
+      })
+    }
+  }).catch(error => {
+    console.log('Error occurred : ' + error);
+  })
+}
   //sideBar change
 
   changeSide() {
@@ -143,7 +144,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p className="sideButton" onClick={this.changeSide}>TEST</p>
+        <div className="sideButton" onClick={this.changeSide}>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+        </div>
         <div className="sideBar">
           <h2 className="title">Parks in Vancouver</h2>
           <span onClick={this.changeSide} className="closeButton">&#8678;</span>
