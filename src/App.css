@@ -1,22 +1,36 @@
 body {
-  background-color: #424242;
+  background-color: #1C1C1C;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 .myMap {
   bottom: 0px;
   height: 100%;
-  left: 30%;
+  left: 27%;
+  top: 5%;
   display: block;
   position: absolute;
   right: 0px
 }
-
+.title {
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  font-size: 2.8vw;
+  font-weight: bold;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+}
 .sideBar {
-  position: relative;
+  position: absolute;
   background-color: #424242;
+  top: 5%;
   height: 100%;
   font-size: 1em;
   color: white;
+  width: 100%;
 }
 .sideButton {
   display: none;
@@ -44,18 +58,13 @@ body {
 .filterUl {
   list-style: none;
   padding-left: 12px;
-  font-size: 2.1vw;
+  font-size: 1.9vw;
 }
 .filterLi {
   margin-bottom: 40px;
   cursor: pointer;
 }
-/* show sideBar list */
 
-.title {
-  font-size: 3vw;
-  padding-left: 5px;
-}
 /* infowindow CSS */
 .photoId {
   width: 100px;
@@ -66,11 +75,19 @@ body {
   .myMap {
     left: 10%
   }
+  .title {
+    padding-top: 13px;
+    font-size: 20px;
+  }
   .sideBar {
-    width: auto;
+    width: 27%;
     transform: translate3d(-50em, 0, 0);
     transition: transform 0.2s;
     z-index: 1;
+
+  }
+  .filterUl {
+    font-size: 14px;
   }
   .sideButton {
     display: block;
