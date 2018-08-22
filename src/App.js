@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './App.css'
 
-
+//data of locations
 let parks = [
   {title: 'Queen Elizabeth Park', id: '4bdf6cddffdec9287a09eca1', location: {lat: 49.24156455524772, lng: -123.11335520540814}},
   {title: 'Dude Chilling Park', id: '50f1dd8ee4b0ee8fd93bbfff', location:  {lat: 49.26372990146711, lng: -123.09679627418517}},
@@ -33,6 +33,7 @@ let restaurants = [
   {title: 'Kuma Japanese Restaurant', id: '522bea74498ede28e9a5b2d5', location: {lat: 49.25614232341938, lng: -123.18494160924303}},
   {title: 'Giardino Restaurant', id: '55515c40498e96daea31c933', location: {lat: 49.27703806011903, lng: -123.130122900779}}
 ]
+//variables for google map
 let map;
 let changeArray = [];
 //variables for infowindow
@@ -42,7 +43,6 @@ let data;
 let name;
 let address;
 let canonicalUrl;
-//let photoId;
 
 class App extends Component {
   state = {
@@ -57,7 +57,6 @@ class App extends Component {
       mapTypeControl: false
     });
 
-    //Make marker with parks array
     largeInfowindow = new window.google.maps.InfoWindow();
     switch(this.state.filter) {
       case 'parks':
@@ -174,14 +173,14 @@ class App extends Component {
       console.log('Error occurred : ' + error);
     })
   }
-  //sideBar change
+  //SideBar changing action
   changeSide() {
     document.querySelector('.sideBar').classList.toggle('show');
     document.querySelector('.sideButton').classList.toggle('hide');
   }
-  //icon to filtering lists
+  //Icon to filtering lists
   changeFilter(value) {
-    console.log(value)
+    console.log('value ' + value)
     this.setState({ markers: [], filter: value });
     console.log('filter ' + this.state.filter)
     this.initMap();
@@ -237,6 +236,7 @@ class App extends Component {
             </span>
           </div>
           <ul className="filterUl">
+            {/* Show lists of places */}
             {this.state.markers.map((marker, i) => (
               <li key={i} className="filterLi" tabIndex="0" value={marker}
                onClick={() => this.markerAnimation(marker)}>
