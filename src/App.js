@@ -41,6 +41,8 @@ let largeInfowindow;
 let api;
 let data;
 let name;
+let prefix;
+let suffix;
 let address;
 let canonicalUrl;
 
@@ -147,6 +149,7 @@ class App extends Component {
       });
       infowindow.setContent(`<div>
         <h3>${name}</h3>
+        <img src="${prefix}210x110${suffix}" alt="best photo of ${name}" />
         <h4>Address : ${address}</h4>
         <a href="${canonicalUrl}" target="_blank">Visit Foursquare page</a>
         </div>`)
@@ -164,6 +167,8 @@ class App extends Component {
           name = data.response.venue.name;
           address = data.response.venue.location.address;
           canonicalUrl = data.response.venue.canonicalUrl;
+          prefix = data.response.venue.bestPhoto.prefix;
+          suffix = data.response.venue.bestPhoto.suffix;
           console.log('fetch successed: address= ' + address + ' url=' + canonicalUrl);
           //run createInfoWindow function
           this.createInfoWindow(marker, infowindow);
@@ -186,7 +191,8 @@ class App extends Component {
     this.initMap();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+
     if (!window.google) {
       var s = document.createElement('script');
       s.type = 'text/javascript';
@@ -196,10 +202,10 @@ class App extends Component {
       x.parentNode.insertBefore(s, x);
 
       s.addEventListener('load', e => {
-        this.initMap()
+        this.initMap();
       })
     } else {
-      this.initMap()
+      this.initMap();
     }
   }
 
@@ -216,26 +222,26 @@ class App extends Component {
         <div className="sideBar">
           <span onClick={this.changeSide} className="closeButton" tabIndex="0">&#8678;</span>
           <div className="filter">
-            <span className="filterButton">
+            <span className="filterButton" tabIndex="0">
               {this.state.filter === 'cafes' ?
                 <img className="icon" alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup-filled.png" />
                 : <img className="icon" onClick={() => this.changeFilter('cafes')} alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup.png" />
               }
             </span>
-            <span className="filterButton">
+            <span className="filterButton" tabIndex="0">
               {this.state.filter === 'restaurants' ?
                 <img className="icon" alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine-filled.png" />
                 : <img className="icon" onClick={() => this.changeFilter('restaurants')} alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine.png" />
               }
             </span>
-            <span className="filterButton">
+            <span className="filterButton" tabIndex="0">
               {this.state.filter === 'parks' ?
                 <img className="icon" alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench-filled.png" />
                 : <img className="icon" onClick={() => this.changeFilter('parks')} alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench.png" />
               }
             </span>
           </div>
-          <ul className="filterUl">
+          <ul className="filterUl" role="placeslist">
             {/* Show lists of places */}
             {this.state.markers.map((marker, i) => (
               <li key={i} className="filterLi" tabIndex="0" value={marker}
