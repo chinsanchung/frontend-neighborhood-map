@@ -183,16 +183,15 @@ class App extends Component {
     document.querySelector('.sideBar').classList.toggle('show');
     document.querySelector('.sideButton').classList.toggle('hide');
   }
-  //Icon to filtering lists
-  changeFilter(value) {
+  //Icon to input filter and filtering lists
+  async changeFilter(value) {
     console.log('value ' + value)
-    this.setState({ markers: [], filter: value });
+    await this.setState({ markers: [], filter: value });
     console.log('filter ' + this.state.filter)
     this.initMap();
   }
 
-  async componentDidMount() {
-
+  componentDidMount() {
     if (!window.google) {
       var s = document.createElement('script');
       s.type = 'text/javascript';
