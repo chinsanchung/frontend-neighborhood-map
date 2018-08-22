@@ -158,7 +158,7 @@ class App extends Component {
   }
   //Get data of Foursquare and store them in variables
   getDetails(marker, infowindow) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
+    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
@@ -196,7 +196,7 @@ class App extends Component {
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
-      s.src = `https://maps.google.com/maps/api/js?key=AIzaSyBQzDYeihQyVFS3NhEU0pruH4DiKrKjrC0`;
+      s.src = `https://maps.google.com/maps/api/js?key=KEY`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
 
