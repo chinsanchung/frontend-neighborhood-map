@@ -34,7 +34,7 @@ let restaurants = [
   {title: 'Giardino Restaurant', id: '55515c40498e96daea31c933', location: {lat: 49.27703806011903, lng: -123.130122900779}}
 ]
 let map;
-let addMarker;
+let changeArray = [];
 //variables for infowindow
 let largeInfowindow;
 let api;
@@ -47,15 +47,13 @@ let canonicalUrl;
 class App extends Component {
   state = {
     markers: [],
-    filter: 'restaurants'
+    filter: 'parks'
   }
   initMap() {
-    let styles = [
-
-    ]
+    console.log('init ' + this.state.filter)
     map = new window.google.maps.Map(document.querySelector('.myMap'), {
-      center: { lat: 49.256693, lng: -123.0871817 },
-      zoom: 12,
+      center: { lat:  49.262782, lng:  -123.126014 },
+      zoom: 11,
       mapTypeControl: false
     });
 
@@ -63,6 +61,7 @@ class App extends Component {
     largeInfowindow = new window.google.maps.InfoWindow();
     switch(this.state.filter) {
       case 'parks':
+        changeArray = [];
         for (let i = 0; i < parks.length; i++) {
           let position = parks[i].location;
           let title = parks[i].title;
@@ -73,8 +72,8 @@ class App extends Component {
             animation: window.google.maps.Animation.DROP,
             id: parks[i].id
           });
-          //helped from https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array/37435577
-          this.setState({ markers: [...this.state.markers, marker] });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
           //onclick event to open infowindow
           marker.addListener('click', () => {
             this.getDetails(marker, largeInfowindow);
@@ -83,6 +82,7 @@ class App extends Component {
         }
         break;
       case 'cafes':
+        changeArray = [];
         for (let i = 0; i < cafes.length; i++) {
           let position = cafes[i].location;
           let title = cafes[i].title;
@@ -93,8 +93,8 @@ class App extends Component {
             animation: window.google.maps.Animation.DROP,
             id: cafes[i].id
           });
-          //helped from https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array/37435577
-          this.setState({ markers: [...this.state.markers, marker] });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
           //onclick event to open infowindow
           marker.addListener('click', () => {
             this.getDetails(marker, largeInfowindow);
@@ -103,6 +103,7 @@ class App extends Component {
         }
         break;
       case 'restaurants':
+        changeArray = [];
         for (let i = 0; i < restaurants.length; i++) {
           let position = restaurants[i].location;
           let title = restaurants[i].title;
@@ -113,8 +114,8 @@ class App extends Component {
             animation: window.google.maps.Animation.DROP,
             id: restaurants[i].id
           });
-          //helped from https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array/37435577
-          this.setState({ markers: [...this.state.markers, marker] });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
           //onclick event to open infowindow
           marker.addListener('click', () => {
             this.getDetails(marker, largeInfowindow);
@@ -126,7 +127,6 @@ class App extends Component {
         console.log('Now there is no filter')
         break;
     }
-    console.log(this.state.markers);
   }
 
   //Change marker's CSS..how to connect sideBar's item with marker
@@ -141,7 +141,6 @@ class App extends Component {
   //Create InfoWindow about marker
   createInfoWindow(marker, infowindow) {
     if(infowindow.marker !== marker) {
-      //infowindow.setContent('');
       infowindow.marker = marker;
 
       infowindow.addListener('closeclick', () => {
@@ -180,17 +179,23 @@ class App extends Component {
     document.querySelector('.sideBar').classList.toggle('show');
     document.querySelector('.sideButton').classList.toggle('hide');
   }
-
+  //icon to filtering lists
+  changeFilter(value) {
+    console.log(value)
+    this.setState({ markers: [], filter: value });
+    console.log('filter ' + this.state.filter)
+    this.initMap();
+  }
 
   componentDidMount() {
     if (!window.google) {
       var s = document.createElement('script');
       s.type = 'text/javascript';
+      s.async = true;
       s.src = `https://maps.google.com/maps/api/js?key=AIzaSyBQzDYeihQyVFS3NhEU0pruH4DiKrKjrC0`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
-      // Below is important.
-      //We cannot access google.maps until it's finished loading
+
       s.addEventListener('load', e => {
         this.initMap()
       })
@@ -203,18 +208,37 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div><nav className="title" tabIndex="0" role="button">Places at Vancouver</nav></div>
+        <div><nav className="title">Places at Vancouver</nav></div>
         <div className="sideButton" tabIndex="0" role="button" onClick={this.changeSide}>
           <span className="line"></span>
           <span className="line"></span>
           <span className="line"></span>
         </div>
         <div className="sideBar">
-
           <span onClick={this.changeSide} className="closeButton" tabIndex="0">&#8678;</span>
+          <div className="filter">
+            <span className="filterButton">
+              {this.state.filter === 'cafes' ?
+                <img className="icon" alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('cafes')} alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup.png" />
+              }
+            </span>
+            <span className="filterButton">
+              {this.state.filter === 'restaurants' ?
+                <img className="icon" alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('restaurants')} alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine.png" />
+              }
+            </span>
+            <span className="filterButton">
+              {this.state.filter === 'parks' ?
+                <img className="icon" alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('parks')} alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench.png" />
+              }
+            </span>
+          </div>
           <ul className="filterUl">
             {this.state.markers.map((marker, i) => (
-              <li key={i} className="filterLi" tabIndex="0" role="button" value={marker}
+              <li key={i} className="filterLi" tabIndex="0" value={marker}
                onClick={() => this.markerAnimation(marker)}>
                 {marker.title}
               </li>
