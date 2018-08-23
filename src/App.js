@@ -124,9 +124,88 @@ class App extends Component {
           }, {passive: true});
         }
         break;
+      case 'all' :
+        changeArray = [];
+        for (let i = 0; i < parks.length; i++) {
+          let position = parks[i].location;
+          let title = parks[i].title;
+          let marker = new window.google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: window.google.maps.Animation.DROP,
+            id: parks[i].id
+          });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
+          //onclick event to open infowindow
+          marker.addListener('click', () => {
+            this.getDetails(marker, largeInfowindow);
+            marker.setAnimation(null);
+          }, {passive: true});
+        }
+        for (let i = 0; i < cafes.length; i++) {
+          let position = cafes[i].location;
+          let title = cafes[i].title;
+          let marker = new window.google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: window.google.maps.Animation.DROP,
+            id: cafes[i].id
+          });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
+          //onclick event to open infowindow
+          marker.addListener('click', () => {
+            this.getDetails(marker, largeInfowindow);
+            marker.setAnimation(null);
+          }, {passive: true});
+        }
+        for (let i = 0; i < restaurants.length; i++) {
+          let position = restaurants[i].location;
+          let title = restaurants[i].title;
+          let marker = new window.google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: window.google.maps.Animation.DROP,
+            id: restaurants[i].id
+          });
+          changeArray.push(marker);
+          this.setState({ markers: changeArray });
+          //onclick event to open infowindow
+          marker.addListener('click', () => {
+            this.getDetails(marker, largeInfowindow);
+            marker.setAnimation(null);
+          }, {passive: true});
+        }
+        break;
       default:
         console.log('Now there is no filter')
         break;
+    }
+  }
+
+//Making marker loop for case 'all' It doesn't work..So case 'all' looks so heavy.
+  switchloop(filter) {
+    for (let i = 0; i < filter.length; i++) {
+      let position = filter[i].location;
+      let title = filter[i].title;
+      let marker = new window.google.maps.Marker({
+        map: map,
+        position: position,
+        title: title,
+        animation: window.google.maps.Animation.DROP,
+        id: filter[i].id
+      });
+      changeArray.push(marker);
+      this.setState({ markers: changeArray });
+      //onclick event to open infowindow
+      marker.addListener('click', () => {
+        this.getDetails(marker, largeInfowindow);
+        marker.setAnimation(null);
+      }, {passive: true});
     }
   }
 
@@ -158,7 +237,7 @@ class App extends Component {
   }
   //Get data of Foursquare and store them in variables
   getDetails(marker, infowindow) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
+    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
@@ -175,7 +254,7 @@ class App extends Component {
         })
       }
     }).catch(error => {
-      console.log('Error occurred : ' + error);
+      alert('Error occurred : ' + error);
     })
   }
   //SideBar changing action
@@ -196,7 +275,7 @@ class App extends Component {
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
-      s.src = `https://maps.google.com/maps/api/js?key=KEY`;
+      s.src = `https://maps.google.com/maps/api/js?key=AIzaSyBQzDYeihQyVFS3NhEU0pruH4DiKrKjrC0`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
 
@@ -208,43 +287,58 @@ class App extends Component {
     }
   }
 
+  //Event for list item of sideBar
+  handleKeyPress = (event, marker) => {
+    if(event.key == 'Enter') {
+      this.markerAnimation(marker);
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <div><nav className="title">Places at Vancouver</nav></div>
-        <div className="sideButton" tabIndex="0" role="button" onClick={this.changeSide}>
+        <div><nav className="title" role="banner">Places at Vancouver</nav></div>
+        <div className="sideButton"
+         tabIndex="0" role="button" aria-labelledby="sideMenu"
+         onClick={this.changeSide}>
           <span className="line"></span>
           <span className="line"></span>
           <span className="line"></span>
         </div>
         <div className="sideBar">
-          <span onClick={this.changeSide} className="closeButton" tabIndex="0">&#8678;</span>
-          <div className="filter">
-            <span className="filterButton" tabIndex="0">
+          <span onClick={this.changeSide} aria-labelledby="Close" className="closeButton" tabIndex="0">&#8678;</span>
+          <div className="filter" role="tablist">
+            <span className="filterButton" role="tab" tabIndex="0">
               {this.state.filter === 'cafes' ?
-                <img className="icon" alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup-filled.png" />
-                : <img className="icon" onClick={() => this.changeFilter('cafes')} alt="Cafe lists button" src="https://png.icons8.com/ios/40/2c3e50/tea-cup.png" />
+                <img className="icon" alt="Cafe lists button" src="https://png.icons8.com/ios/34/2c3e50/tea-cup-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('cafes')} alt="Cafe lists button" src="https://png.icons8.com/ios/34/2c3e50/tea-cup.png" />
               }
             </span>
-            <span className="filterButton" tabIndex="0">
+            <span className="filterButton" role="tab" tabIndex="0">
               {this.state.filter === 'restaurants' ?
-                <img className="icon" alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine-filled.png" />
-                : <img className="icon" onClick={() => this.changeFilter('restaurants')} alt="Restaurant lists button" src="https://png.icons8.com/ios/40/2c3e50/food-and-wine.png" />
+                <img className="icon" alt="Restaurant lists button" src="https://png.icons8.com/ios/34/2c3e50/food-and-wine-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('restaurants')} alt="Restaurant lists button" src="https://png.icons8.com/ios/34/2c3e50/food-and-wine.png" />
               }
             </span>
-            <span className="filterButton" tabIndex="0">
+            <span className="filterButton" role="tab" tabIndex="0">
               {this.state.filter === 'parks' ?
-                <img className="icon" alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench-filled.png" />
-                : <img className="icon" onClick={() => this.changeFilter('parks')} alt="Park lists button" src="https://png.icons8.com/ios/40/2c3e50/city-bench.png" />
+                <img className="icon" alt="Park lists button" src="https://png.icons8.com/ios/34/2c3e50/city-bench-filled.png" />
+                : <img className="icon" onClick={() => this.changeFilter('parks')} alt="Park lists button" src="https://png.icons8.com/ios/34/2c3e50/city-bench.png" />
+              }
+            </span>
+            <span className="filterButton" role="tab" tabIndex="0">
+              {this.state.filter === 'all' ?
+                <img className="icon" alt="All lists button" src="https://png.icons8.com/material-rounded/34/2c3e50/summary-list.png" />
+                : <img className="icon" onClick={() => this.changeFilter('all')} alt="Park lists button" src="https://png.icons8.com/material-outlined/34/000000/summary-list.png" />
               }
             </span>
           </div>
-          <ul className="filterUl" role="placeslist">
+          <ul className="filterUl">
             {/* Show lists of places */}
             {this.state.markers.map((marker, i) => (
-              <li key={i} className="filterLi" tabIndex="0" value={marker}
-               onClick={() => this.markerAnimation(marker)}>
+              <li key={i} className="filterLi" tabIndex="0" role="menuitem" aria-labelledby="menuitem"
+               onClick={() => this.markerAnimation(marker)}
+               onKeyPress={(event) => this.handleKeyPress(event, marker)}>
                 {marker.title}
               </li>
             ))}
