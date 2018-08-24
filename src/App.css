@@ -66,19 +66,19 @@ body {
   border-radius: 10px;
   cursor: pointer;
 }
-.filterUl {
+.locationList {
   list-style: none;
   padding-left: 10px;
   font-size: 1.9vw;
 }
-.filterLi {
+.location {
   margin-bottom: 40px;
   cursor: pointer;
 }
 
 /* infowindow CSS */
 .photoId {
-  width: 100px;
+  width: 150px;
   height: auto;
 }
 /* CSS for icon */
