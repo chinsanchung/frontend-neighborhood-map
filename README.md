@@ -12,16 +12,20 @@
 ## Function
 - It shows parks, restaurants, and cafe lists of Vancouver.
 - At main page, there are markers that show location of places(default: parks)
-- User can change parks, cafes, restaurants list by clicking filter button.
+- User can change parks, cafes, restaurants list and show all by clicking filter button.
 - Each marker shows InfoWindow about place and displays name, address, picture and Foursquare page's link.
 - Service Worker helps to run web pages offline.
 
 ## What I did
+- Build App, Map, SideBar component and connected each other.
 - Fetch Google Maps and get data from Foursquare's Places API at React library.
 - Make filter button that show other places list by changing state's filter.
 - Design page's CSS to have responsive and set sideButton with CSS animation
 - Setting Service Worker to help running page offline.
 - Give tabindex attribute for tab key's setting. Give image tag to alt attribute for explaination.
+- Make it possible to control with keyboard.
+  - Show infoWindow from list with Enter key and close infowindow with Esc key.
+  - Change filter button with Enter key.
 
 ## Reference
 - [For Loops in React Render() — No You Didn’t!](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778)
@@ -33,3 +37,5 @@
 - [LOLCOLORS : list of popular color palettes](https://www.webdesignrankings.com/resources/lolcolors/)
 - [icon8](https://icons8.com/)
 - [async, await makes Asynchronous javascript(translate)](https://blueshw.github.io/2018/02/27/async-await/)
+- [Progressive Web Apps with React.js: Part 3 — Offline support and network resilience](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c)
+- [Refs and the DOM(reactjs.org)](https://reactjs.org/docs/refs-and-the-dom.html)
