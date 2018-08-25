@@ -37,9 +37,9 @@ class App extends Component {
   inputMarkers(value) {
     this.setState({ markers: value });
   }
-  //Get data of Foursquare and store them in variables EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4
+  //Get data of Foursquare and store them in variables Enter your ID and SECRET
   getDetails(map, marker) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=EKTTGCNFBQA4PWPHF0T4OHBXMKBLMQEGCXEHDSVDCL4X2VF4&client_secret=3WTGE0UZLTWFNZOQ1DNG3J1PC4DNRCS2PXEXJOGWKOI0C5WP&v=20180813`;
+    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
@@ -90,7 +90,7 @@ class App extends Component {
     if (value !== this.state.filter) {
       await this.setState({ markers: [], filter: value });
     }
-    
+
     this.initMap();
   }
   //Button for sideBar when page size is small.
