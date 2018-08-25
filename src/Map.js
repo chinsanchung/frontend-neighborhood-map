@@ -75,7 +75,7 @@ class Map extends Component {
       var s = document.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
-      s.src = `https://maps.google.com/maps/api/js?key=AIzaSyBQzDYeihQyVFS3NhEU0pruH4DiKrKjrC0`;
+      s.src = `https://maps.google.com/maps/api/js?key=KEY`;
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
       s.addEventListener('load', e => {
