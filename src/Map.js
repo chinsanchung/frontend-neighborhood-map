@@ -25,11 +25,13 @@ class Map extends Component {
       this.props.inputMarkers(changeArray);
       //onclick event to open infowindow
       marker.addListener('click', () => {
+        this.props.closeInfo();
         this.props.getDetails(map, marker);
         marker.setAnimation(null);
       }, {passive: true});
       marker.addListener('keypress', (e) => {
         if(e.key === 'Enter') {
+          this.props.closeInfo();
           this.props.getDetails(map, marker);
           marker.setAnimation(null);
         }
