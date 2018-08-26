@@ -12,6 +12,7 @@ let prefix;
 let suffix;
 let address;
 let canonicalUrl;
+let infoWindows = [];
 
 class App extends Component {
   constructor(props) {
@@ -23,9 +24,8 @@ class App extends Component {
     map: '',
     markers: [],
     filter: 'parks'
-
   }
-  //It saves map variable from Map component to give itself to Sidbar.js
+  //It saves map variable from Map component to give itself to Sidebar.js
   storeMap(value) {
     this.setState({ map: value });
   }
@@ -37,7 +37,7 @@ class App extends Component {
   inputMarkers(value) {
     this.setState({ markers: value });
   }
-  //Get data of Foursquare and store them in variables Enter your ID and SECRET
+  //Get data of Foursquare and store them in variables. Enter your id and secret.
   getDetails(map, marker) {
     api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
     fetch(api, {
@@ -59,7 +59,15 @@ class App extends Component {
       } else if(res.status === 429) {
         alert('Foursquare error 429. Daily call quota exceeded.')
       }
+    }).catch(error => {
+      alert('Fetch Foursquare API failed. : ' + error);
     })
+  }
+  //Store infoWindow at array to show only one infoWindow
+  closeInfo() {
+    for (let i = 0; i < infoWindows.length; i++) {
+      infoWindows[i].close();
+    }
   }
   //Create InfoWindow and open it.
   createInfoWindow(map, marker) {
@@ -68,9 +76,11 @@ class App extends Component {
           <h2 tabIndex="0">${name}</h2>
           <img tabIndex="0" src="${prefix}240x130${suffix}" alt="best photo of ${name}" />
           <h3 tabIndex="0">Address : ${address}</h3>
-          <a href="${canonicalUrl}" target="_blank" tabIndex="0">Visit Foursquare page</a>
+          <a href="${canonicalUrl}" target="_blank" tabIndex="0">Foursquare Link</a>
           </div>`
     })
+    infoWindows.push(infoWindow);
+
     infoWindow.open(map, marker);
     //InfoWindow will be closed when click the map.
     window.google.maps.event.addListener(map, 'click', () => {
@@ -90,7 +100,6 @@ class App extends Component {
     if (value !== this.state.filter) {
       await this.setState({ markers: [], filter: value });
     }
-
     this.initMap();
   }
   //Button for sideBar when page size is small.
@@ -117,6 +126,7 @@ class App extends Component {
           changeFilter={this.changeFilter.bind(this)}
           getDetails={this.getDetails}
           createInfoWindow={this.createInfoWindow}
+          closeInfo={this.closeInfo}
           changeSide={this.changeSide}
         />
         <Map
@@ -127,6 +137,7 @@ class App extends Component {
           inputMarkers={this.inputMarkers.bind(this)}
           getDetails={this.getDetails}
           createInfoWindow={this.createInfoWindow}
+          closeInfo={this.closeInfo}
         />
       </div>
     );
