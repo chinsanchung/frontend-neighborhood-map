@@ -16,6 +16,7 @@ class SideBar extends Component {
   liKeyPress = (event, marker) => {
     if(event.key === 'Enter') {
       this.markerAnimation(marker);
+      this.props.closeInfo();
       this.props.getDetails(this.props.map, marker);
     }
   }
@@ -66,6 +67,8 @@ class SideBar extends Component {
             <li key={i} className="location" tabIndex="0" role="menuitem" aria-labelledby="menuitem"
              onClick={() => {
                this.markerAnimation(marker)
+               //this.props.getDetails(map, marker)
+               this.props.closeInfo();
                this.props.getDetails(map, marker)
              }}
              onKeyPress={(event) => this.liKeyPress(event, marker)}>
