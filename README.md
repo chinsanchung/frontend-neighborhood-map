@@ -27,9 +27,6 @@
   - Show infoWindow from list with Enter key and close infowindow with Esc key.
   - Change filter button with Enter key.
 
-## Image
-![image01](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor01.jpg)
-![image02](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor02.jpg)
 ## Reference
 - [For Loops in React Render() — No You Didn’t!](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778)
 - [Using Google Maps in React without custom libraries](http://cuneyt.aliustaoglu.biz/en/using-google-maps-in-react-without-custom-libraries/)
@@ -42,5 +39,9 @@
 - [async, await makes Asynchronous javascript(translate)](https://blueshw.github.io/2018/02/27/async-await/)
 - [Progressive Web Apps with React.js: Part 3 — Offline support and network resilience](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c)
 - [Refs and the DOM(reactjs.org)](https://reactjs.org/docs/refs-and-the-dom.html)
-- [
-[Have just one InfoWindow open in Google Maps API v3](https://code.i-harness.com/en/q/1c9e8c)
+- [Have just one InfoWindow open in Google Maps API v3](https://code.i-harness.com/en/q/1c9e8c)
+
+
+## Image
+![image01](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor01.jpg)
+![image02](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor02.jpg)
