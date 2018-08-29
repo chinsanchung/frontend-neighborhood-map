@@ -37,11 +37,7 @@
 - [LOLCOLORS : list of popular color palettes](https://www.webdesignrankings.com/resources/lolcolors/)
 - [icon8](https://icons8.com/)
 - [async, await makes Asynchronous javascript(translate)](https://blueshw.github.io/2018/02/27/async-await/)
+- [파이어폭스가 Async/Await 를 지원합니다.](http://hacks.mozilla.or.kr/2016/12/asyncawait-arrive-in-firefox/)
 - [Progressive Web Apps with React.js: Part 3 — Offline support and network resilience](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c)
 - [Refs and the DOM(reactjs.org)](https://reactjs.org/docs/refs-and-the-dom.html)
 - [Have just one InfoWindow open in Google Maps API v3](https://code.i-harness.com/en/q/1c9e8c)
-
-
-## Image
-![image01](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor01.jpg)
-![image02](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor02.jpg)
