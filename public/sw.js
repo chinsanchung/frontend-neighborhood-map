@@ -12,7 +12,7 @@ self.addEventListener('install', (event) => {
         '../src/SideBar.js',
         '../src/index.js',
         '../src/index.css',
-        '../src/App.css',
+        '../src/styles/css/App.css',
         '../src/registerServiceWorker.js',
         'https://png.icons8.com/ios/34/2c3e50/tea-cup-filled.png',
         'https://png.icons8.com/ios/34/2c3e50/tea-cup.png',
