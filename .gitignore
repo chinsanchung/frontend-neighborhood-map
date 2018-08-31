@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# gulp-sass, gulp-eslint
+src/styles/sass
+.eslintrc.js
