@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Map from './Map';
 import SideBar from './SideBar';
-import './App.css';
+import './styles/css/App.css';
 
 
 //variables for infowindow
