@@ -2,7 +2,7 @@
 ## Tools
 - OS : Windows 10 Home
 - language: HTML, CSS, JavaScript
-- tools : Atom text editor, Github Desktop, React(create-react-app), Service Worker
+- tools : Atom text editor, Github Desktop, React(create-react-app), Service Worker, gulp, SASS, gulp-autoprefixer, ESLint
 
 ## Preparations
 - Install NPM at the project folder. `npm install`
@@ -26,6 +26,8 @@
 - Make it possible to control with keyboard.
   - Show infoWindow from list with Enter key and close infowindow with Esc key.
   - Change filter button with Enter key.
+- Changed CSS with SASS(gulp-sass) and gulp-autoprefixer
+- Check JavaScript files with ESLint(gulp-eslint)
 
 ## Reference
 - [For Loops in React Render() — No You Didn’t!](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778)
