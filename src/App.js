@@ -100,6 +100,7 @@ class App extends Component {
     if (value !== this.state.filter) {
       await this.setState({ markers: [], filter: value });
     }
+    //It will be run after "this.setState({markers: [], filter: vaule})"
     this.initMap();
   }
   //Button for sideBar when page size is small.
