@@ -28,6 +28,7 @@
   - Change filter button with Enter key.
 - Changed CSS with SASS(gulp-sass) and gulp-autoprefixer
 - Check JavaScript files with ESLint(gulp-eslint)
+- Build the project with Babel and Webpack by using react-script's default setting.
 
 ## Reference
 - [For Loops in React Render() — No You Didn’t!](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778)
