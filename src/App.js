@@ -6,7 +6,6 @@ import './styles/css/App.css';
 
 //variables for infowindow
 let api;
-let data;
 let name;
 let prefix;
 let suffix;
@@ -44,7 +43,7 @@ class App extends Component {
       method: 'GET'
     }).then(res => {
       if(res.status === 200) {
-        data = res.json().then(data => {
+        res.json().then(data => {
           name = data.response.venue.name;
           address = data.response.venue.location.address;
           canonicalUrl = data.response.venue.canonicalUrl;
@@ -112,7 +111,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div><nav className="title" role="banner">Places at Vancouver</nav></div>
+        <div>
+          <nav className="title" role="banner">
+            Places at Vancouver
+          </nav>
+        </div>
         <div className="sideButton"
          role="button" aria-labelledby="sideMenu"
          onClick={this.changeSide}>
