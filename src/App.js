@@ -5,12 +5,6 @@ import './styles/css/App.css';
 
 
 //variables for infowindow
-let api;
-let name;
-let prefix;
-let suffix;
-let address;
-let canonicalUrl;
 let infoWindows = [];
 
 class App extends Component {
@@ -38,17 +32,17 @@ class App extends Component {
   }
   //Get data of Foursquare and store them in variables. Enter your id and secret.
   getDetails(map, marker) {
-    api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
+    let api = `https://api.foursquare.com/v2/venues/${marker.id}?client_id=ID&client_secret=SECRET&v=20180813`;
     fetch(api, {
       method: 'GET'
     }).then(res => {
       if(res.status === 200) {
         res.json().then(data => {
-          name = data.response.venue.name;
-          address = data.response.venue.location.address;
-          canonicalUrl = data.response.venue.canonicalUrl;
-          prefix = data.response.venue.bestPhoto.prefix;
-          suffix = data.response.venue.bestPhoto.suffix;
+          let name = data.response.venue.name;
+          let address = data.response.venue.location.address;
+          let canonicalUrl = data.response.venue.canonicalUrl;
+          let prefix = data.response.venue.bestPhoto.prefix;
+          let suffix = data.response.venue.bestPhoto.suffix;
           console.log('fetch successed: address= ' + address + ' url=' + canonicalUrl);
           //run createInfoWindow function
           this.createInfoWindow(map, marker);
