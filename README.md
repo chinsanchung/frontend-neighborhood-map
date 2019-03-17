@@ -1,4 +1,4 @@
-# Neighborhood-map (Frontend Nanodegree)
+# Neighborhood-Map (with Udacity Frontend Web developer Nanodegree)
 ## Tools
 - OS : Windows 10 Home
 - language: HTML, CSS, JavaScript
