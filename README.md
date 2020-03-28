@@ -1,50 +1,68 @@
-# Neighborhood-Map (with Udacity Frontend Web developer Nanodegree)
-## Tools
-- OS : Windows 10 Home
-- language: HTML, CSS, JavaScript
-- tools : Atom text editor, Github Desktop, React(create-react-app), Service Worker, gulp, SASS, gulp-autoprefixer, ESLint
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Preparations
-- Install NPM at the project folder. `npm install`
-- Replace google maps API key from ID to user's key
-- Replace Foursquare Places API's ID and SECRET
+## Available Scripts
 
-## Function
-- It shows parks, restaurants, and cafe lists of Vancouver.
-- At main page, there are markers that show location of places(default: parks)
-- User can change parks, cafes, restaurants list and show all by clicking filter button.
-- Each marker shows InfoWindow about place and displays name, address, picture and Foursquare page's link.
-- Service Worker helps to run web pages offline.
+In the project directory, you can run:
 
-## What I did
-- Build App, Map, SideBar component and connected each other.
-- Fetch Google Maps and get data from Foursquare's Places API at React library.
-- Make filter button that show other places list by changing state's filter.
-- Design page's CSS to have responsive and set sideButton with CSS animation
-- Setting Service Worker to help running page offline.
-- Give tabindex attribute for tab key's setting. Give image tag to alt attribute for explaination.
-- Make it possible to control with keyboard.
-  - Show infoWindow from list with Enter key and close infowindow with Esc key.
-  - Change filter button with Enter key.
-- Changed CSS with SASS(gulp-sass) and gulp-autoprefixer
-- Check JavaScript files with ESLint(gulp-eslint)
-- Build the project with Babel and Webpack by using react-script's default setting.
+### `yarn start`
 
-## Reference
-- [For Loops in React Render() — No You Didn’t!](https://blog.cloudboost.io/for-loops-in-react-render-no-you-didnt-6c9f4aa73778)
-- [Using Google Maps in React without custom libraries](http://cuneyt.aliustaoglu.biz/en/using-google-maps-in-react-without-custom-libraries/)
-- [latlong.net: Get Latitude and Longitude](https://www.latlong.net/)
-- [Passive event listeners](https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md)
-- [Google developers: Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
-- [Udacity forum](https://discussions.udacity.com/)
-- [LOLCOLORS : list of popular color palettes](https://www.webdesignrankings.com/resources/lolcolors/)
-- [icon8](https://icons8.com/)
-- [async, await makes Asynchronous javascript(translate)](https://blueshw.github.io/2018/02/27/async-await/)
-- [파이어폭스가 Async/Await 를 지원합니다.](http://hacks.mozilla.or.kr/2016/12/asyncawait-arrive-in-firefox/)
-- [Progressive Web Apps with React.js: Part 3 — Offline support and network resilience](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c)
-- [Refs and the DOM(reactjs.org)](https://reactjs.org/docs/refs-and-the-dom.html)
-- [Have just one InfoWindow open in Google Maps API v3](https://code.i-harness.com/en/q/1c9e8c)
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Sample image
-![neighbor01](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor01.jpg)
-![neighbor02](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor02.jpg)
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `yarn build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
