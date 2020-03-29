@@ -48,3 +48,12 @@
 ## Sample image
 ![neighbor01](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor01.jpg)
 ![neighbor02](https://github.com/chinsanchung/frontend-neighborhood-map/blob/master/image/neighbor02.jpg)
+
+## Version 02 진행중
+### 진행상황
+- 03/28
+  - Bootstrap 으로 페이지 디자인
+- 03/29
+  - google-map-react 페키지로 맵 불러오기
+  - Redux 설치, 설정
+  - 컴포넌트 설계
