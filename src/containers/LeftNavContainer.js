@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as place_reducer from '../modules';
-import LeftNav from '../components/LeftNav';
+import * as placeReducer from '../modules/place';
+import LeftNav from '../pages/LeftNav';
 
 
 function LeftNavContainer() {
@@ -9,7 +9,7 @@ function LeftNavContainer() {
     const dispatch = useDispatch();
 
     const onSavePlace = data => {
-        dispatch(place_reducer.save_place(data));
+        dispatch(placeReducer.save_place(data));
         console.log(places)
     };
 

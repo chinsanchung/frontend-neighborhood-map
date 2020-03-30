@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as place_reducer from '../modules';
-import PlaceList from '../components/PlaceList';
+import * as placeReducer from '../modules/place';
+import PlaceList from '../components/left-side/PlaceList';
 
 function PlaceListContainer() {
     const places = useSelector(state => state.placeReducer, []);
     const dispatch = useDispatch();
 
-    const onDeletePlace = id => dispatch(place_reducer.delete_place(id));
+    const onDeletePlace = id => dispatch(placeReducer.delete_place(id));
 
     return (
         <PlaceList
