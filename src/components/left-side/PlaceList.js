@@ -5,17 +5,21 @@ function PlaceList(props) {
     const { places, onDeletePlace } = props;
 
     return (
-        <div>
-            <ul className="list-group list-group-flush">
+        <>
+            <div className="list-group list-group-flush">
                 {places.map(place => (
                     <PlaceItem
-                        id={place.id}
+                        key={place.place_id}
+                        place_id={place.place_id}
                         name={place.name}
+                        location={place.geometry.location}
+                        photo_reference={place.photos[0].photo_reference}
+                        rating={place.rating}
                         onDeletePlace={onDeletePlace}
                     />
                 ))}
-            </ul>
-        </div>
+            </div>
+        </>
     )
 }
 
