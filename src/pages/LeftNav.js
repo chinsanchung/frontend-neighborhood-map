@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { MdSearch } from 'react-icons/md';
-import { MAP_KEY } from '../assets/API';
-import axios from 'axios';
+import React, { useState } from 'react';
 import PlaceListContainer from '../containers/PlaceListContainer';
-
+import SearchForm from '../components/left-side/SearchForm';
 
 function LeftNav(props) {
     const { places, onSavePlace } = props;
@@ -28,22 +24,15 @@ function LeftNav(props) {
 
     return (
         <>
-            <div className="col-12 col-sm-3 col=md-3 LeftNav">
+            <div className="col-12 col-sm-4 col=md-4 leftNav">
                 <div className="container">
                     <div className="row">
                         <div className="col-11">
-                            <form onSubmit={onSubmit}>
-                                <div className="form-group row">
-                                    <input type="text"
-                                        id="search"
-                                        className="form-control"
-                                        name="search"
-                                        value={value}
-                                        onChange={onChange}
-                                    />
-                                    <MdSearch className="search-icon" />
-                                </div>
-                            </form>
+                            <SearchForm
+                                value={value}
+                                onSubmit={onSubmit}
+                                onChange={onChange}
+                            />
                         </div>
                     </div>
                     <div className="row">
