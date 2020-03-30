@@ -1,15 +1,13 @@
 import React from 'react';
 import GoogleMap from './components/GoogleMap';
-import Header from './components/Header';
+import Header from './pages/Header';
 import LeftNavContainer from './containers/LeftNavContainer'
 
 function App() {
 	return (
 		<div className="App">
+			<Header />
 			<div className="container">
-				{/* <div className="row">
-					<Header />
-				</div> */}
 				<div className="row">
 					<LeftNavContainer />
 					{/* <GoogleMap /> */}
