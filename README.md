@@ -57,3 +57,9 @@
   - google-map-react 페키지로 맵 불러오기
   - Redux 설치, 설정
   - 컴포넌트 설계
+- 03/30
+  - Places API 의 데이터를 옮겨와 이름, 사진, 평가를 PlaceItem 에 옮김
+  - pages, components/left-side 폴더 생성, 파일 구분
+  - LeftNav 의 기능들을 컴포넌트로 
+  - bookmark, place 리듀서로 구분
+  
